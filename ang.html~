@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gestione</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/app.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body ng-app="mainApp">
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <div ng-controller="homeController"  class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+            <div class="sidebar">
+                <h3>Visualizza</h3>
+                <ul>
+                    <li><a href="#/offerteView">Offerte</a></li>
+                    <li><a href="#/ordiniView">Ordini</a></li>
+                </ul>
+                <h3>Inserisci</h3>
+                <ul>
+                    <li><a href="#/newCliente">Cliente</a></li>
+                    <li><a href="#/newOfferta">Offerta</a></li>
+                    <li><a href="#/newParticolare">Particolare</a></li>
+                    <li><a href="#/newDisegno">Disegno</a></li>
+                    <li><a href="#/newTrattamento">Trattamento</a></li>
+                    <li><a href="#/newFornitore">Fornitore</a></li>
+                    <li><a href="#/newMateriale">Materiale</a></li>
+                </ul>
+            </div>
+        </div>
+        <h2>{{currentPage}}</h2>
+        <div ng-view class="span10"></div>
+      </div>
+    </div>
+</body>
+</html>
+

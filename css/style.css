@@ -1,0 +1,65 @@
+.actionscolumn img{
+    visibility: hidden;
+    cursor: pointer;
+}
+.myrow:hover .actionscolumn img{
+    visibility: visible;
+}
+
+.sidebar{
+    position:fixed;
+}
+
+.orange{
+    color: #ffa500;
+}
+
+.red{
+    color:red;
+}
+
+.green{
+    color: green;
+}
+
+.pointer{
+    cursor: pointer;  
+}
+
+.inline{
+    display:inline;
+}
+
+.myspaced{
+    display: block;
+    float: left;
+    margin: 5px;
+}
+
+.white{
+    background-color: white;
+}
+
+.selectedOfferta{
+    color: red;
+}
+
+.confirmed{
+    color: green;
+}
+
+.selectedOfferta .actionscolumn .action{
+    visibility: visible;
+}
+
+.confirmed .actionscolumn .protected{
+    visibility: hidden;
+}
+
+.confirmed:hover .actionscolumn .protected{
+    visibility: hidden;
+}
+
+.mytable{
+    background-color: #eeeeee;
+}

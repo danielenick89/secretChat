@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=350">
+    <title>Secret Chatting </title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/sha3.js"></script>
+    <script src="js/aes.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+    var JsonFormatter = {
+        stringify: function (cipherParams) {
+            // create json object with ciphertext
+            var jsonObj = {
+                ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
+            };
+
+            // optionally add iv and salt
+            if (cipherParams.iv) {
+                jsonObj.iv = cipherParams.iv.toString();
+            }
+            if (cipherParams.salt) {
+                jsonObj.s = cipherParams.salt.toString();
+            }
+
+            // stringify json object
+            return JSON.stringify(jsonObj);
+        },
+
+        parse: function (jsonStr) {
+            // parse json string
+            var jsonObj = JSON.parse(jsonStr);
+
+            // extract ciphertext from json object, and create cipher params object
+            var cipherParams = CryptoJS.lib.CipherParams.create({
+                ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
+            });
+
+            // optionally extract iv and salt
+            if (jsonObj.iv) {
+                cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv)
+            }
+            if (jsonObj.s) {
+                cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s)
+            }
+
+            return cipherParams;
+        }
+    };
+    </script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body style="position: relative; width: 100%;" ng-app="mainApp">
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <div ng-controller="homeController"  class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+            <h2 style="font-family:'Courier New', Courier, monospace; margin-bottom:0px;">{{title}}</h2>
+            <span style="font-family:'Courier New', Courier, monospace; display: block;">by Daniele Nicassio (<a target="_blank" href="http://www.nicassio.it/daniele/blog/?p=171">blog page</a>)</span>
+            <hr/>
+            <input type="text" ng-model="nickname" placeholder="Nickname" /><br/>
+            <form ng-submit="setKey()">
+            <input ng-init="keySet = false" ng-hide="keySet" type="password" ng-model="edit_key" placeholder="Secret Key" /><br/>
+            <a ng-hide="keySet" class="pointer" href="" ng-click="setKey()">Enter chat</a><br/>
+            <a ng-show="keySet" class="pointer" href="" ng-click="keySet = false">Change conversation</a><br/>
+            <span class="help-block">{{help}}</span>
+            </form>
+            <table class="table table-striped">
+            <tr ng-repeat="message in messages"><td style="width: 18%">{{message.formatted_time}}</td> <td style="width: 18%"><b>{{message.nick}}</b></td><td>{{message.text}}</td></tr>
+            </table>
+            <a href="" class="pointer" ng-click="erase()">Erase Conversation</a>
+            <form ng-submit="send()">
+            <input id="textInput" type="text" ng-disabled="keySet == false" ng-model="what.text" placeholder="Type your message" />
+            </form>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+
